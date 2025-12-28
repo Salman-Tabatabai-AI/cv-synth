@@ -141,6 +141,8 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 
 [LinkedIn](https://www.linkedin.com/in/salman-tabatabai)
 
+[![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/N4N61R5TEX)
+
 ---
 
 ## 📃 License
