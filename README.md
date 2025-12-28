@@ -16,6 +16,13 @@
   - **Layout Controls**: Adjust page margins, line heights, and section ordering via drag-and-drop.
   - **Theme**: Clean, professional aesthetics with visual separators and alignment tools.
 - **Smart Inputs**: specialized date pickers (MM/YYYY) and degree selectors.
+- **Advanced Content**:
+  - **Awards Section**: dedicated space for achievements.
+  - **Custom Links**: Add ResearchGate, Behance, or any other profile.
+  - **Subtitles**: Free-text subheaders for your personal profile.
+- **Section Management**:
+  - **Visibility Toggles**: Hide/Show entire sections with one click.
+  - **Drag-and-Drop**: Easily reorder main sections to suit your narrative.
 
 ---
 
@@ -65,7 +72,8 @@ Once you start the app, it runs **entirely on your own computer**.
 1. **Edit Content**: Use the **Content** tab on the left to fill in your details.
    - **Personal**: Name, Title, Contact Info.
    - **Sections**: Add Experience, Education, Skills, etc.
-   - **Reorder**: Drag section headers (≡) to change their order on the resume.
+   - **Reorder**: Drag section headers (≡) to change their order.
+   - **Visibility**: Click the Eye icon to hide sections you don't need right now.
 2. **Design**: Switch to the **Design** tab to tweak fonts, sizes, and margins.
 3. **Save Your Work**: Click the **Floppy Disk** icon ("Save") to save your progress to your computer.
    - *Note*: Use the **Folder** icon ("Load") to open these files later.

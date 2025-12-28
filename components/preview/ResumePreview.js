@@ -14,11 +14,14 @@ export function ResumePreview({ resumeData, sectionOrder, styles }) {
     });
 
     const renderSection = (sectionId) => {
+        const sectionConfig = sectionOrder.find(s => s.id === sectionId);
+        if (!sectionConfig?.visible) return null;
+
         switch (sectionId) {
             case 'summary':
                 return resumeData.personal.summary && (
                     <section key="summary" className="mb-6 break-inside-avoid">
-                        <h3 className="mb-3 border-b border-gray-300 pb-1" style={getStyle('sectionTitle')}>Profile</h3>
+                        <h3 className="mb-3 border-b border-gray-300 pb-1" style={getStyle('sectionTitle')}>{sectionConfig.label}</h3>
                         <div className="text-left" style={getStyle('bodyText')}>
                             <FormattedText text={resumeData.personal.summary} />
                         </div>
@@ -27,7 +30,7 @@ export function ResumePreview({ resumeData, sectionOrder, styles }) {
             case 'experience':
                 return (
                     <section key="experience" className="mb-6">
-                        <h3 className="mb-4 border-b border-gray-300 pb-1" style={getStyle('sectionTitle')}>Employment History</h3>
+                        <h3 className="mb-4 border-b border-gray-300 pb-1" style={getStyle('sectionTitle')}>{sectionConfig.label}</h3>
                         <div className="space-y-6">
                             {resumeData.experience.map((job) => (
                                 // GRID: Date (130px) | Content
@@ -58,10 +61,10 @@ export function ResumePreview({ resumeData, sectionOrder, styles }) {
             case 'education':
                 return (
                     <section key="education" className="mb-6">
-                        <h3 className="mb-4 border-b border-gray-300 pb-1" style={getStyle('sectionTitle')}>Education</h3>
+                        <h3 className="mb-4 border-b border-gray-300 pb-1" style={getStyle('sectionTitle')}>{sectionConfig.label}</h3>
                         <div className="space-y-5">
                             {resumeData.education.map((edu) => (
-                                <div key={edu.id} className="grid grid-cols-[130px_1fr] gap-4 break-inside-avoid items-baseline">
+                                <div key={edu.id} className="grid grid-cols-[115px_1fr] gap-4 break-inside-avoid items-baseline">
                                     <div className="shrink-0 text-left" style={getStyle('dates')}>
                                         {edu.dates}
                                     </div>
@@ -96,7 +99,7 @@ export function ResumePreview({ resumeData, sectionOrder, styles }) {
             case 'skills':
                 return (
                     <section key="skills" className="mb-6 break-inside-avoid">
-                        <h3 className="mb-4 border-b border-gray-300 pb-1" style={getStyle('sectionTitle')}>Skills</h3>
+                        <h3 className="mb-4 border-b border-gray-300 pb-1" style={getStyle('sectionTitle')}>{sectionConfig.label}</h3>
                         <div className="grid grid-cols-2 gap-x-12 gap-y-2">
                             {resumeData.skills.map(skill => (
                                 <div key={skill.id} className="flex justify-between items-center text-sm border-b border-gray-100 pb-1 last:border-0" style={getStyle('bodyText')}>
@@ -110,12 +113,41 @@ export function ResumePreview({ resumeData, sectionOrder, styles }) {
             case 'languages':
                 return (
                     <section key="languages" className="mb-6 break-inside-avoid">
-                        <h3 className="mb-4 border-b border-gray-300 pb-1" style={getStyle('sectionTitle')}>Languages</h3>
-                        <div className="grid grid-cols-2 gap-x-12 gap-y-2">
-                            {resumeData.languages.map(lang => (
-                                <div key={lang.id} className="flex justify-between items-center text-sm border-b border-gray-100 pb-1 last:border-0" style={getStyle('bodyText')}>
-                                    <span className="font-medium">{lang.name}</span>
-                                    <span className="text-xs px-2 py-0.5 rounded-full bg-gray-100 text-gray-500">{lang.level}</span>
+                        <h3 className="mb-3 border-b border-gray-300 pb-1" style={getStyle('sectionTitle')}>{sectionConfig.label}</h3>
+                        <div className="grid grid-cols-2 gap-y-1 gap-x-8">
+                            {resumeData.languages.map((lang) => (
+                                <div key={lang.id} className="flex justify-between text-sm">
+                                    <span style={getStyle('bodyText')} className="font-semibold">{lang.name}</span>
+                                    <span style={getStyle('bodyText')} className="italic text-gray-500">{lang.level}</span>
+                                </div>
+                            ))}
+                        </div>
+                    </section>
+                );
+            case 'awards':
+                return (
+                    <section key="awards" className="mb-6">
+                        <h3 className="mb-4 border-b border-gray-300 pb-1" style={getStyle('sectionTitle')}>{sectionConfig.label}</h3>
+                        <div className="space-y-4">
+                            {resumeData.awards.map((award) => (
+                                <div key={award.id} className="grid grid-cols-[115px_1fr] gap-4 break-inside-avoid items-baseline">
+                                    <div className="shrink-0 text-left" style={getStyle('dates')}>
+                                        {award.dates}
+                                    </div>
+                                    <div className="min-w-0">
+                                        <div className="flex justify-between items-baseline mb-2">
+                                            <div className="leading-tight">
+                                                <span style={getStyle('jobTitle')}>{award.role}</span>
+                                                <span className="mx-2 text-gray-300 font-light">|</span>
+                                                <span style={getStyle('company')}>{award.company}</span>
+                                            </div>
+                                        </div>
+                                        {award.description && (
+                                            <div className="text-left" style={getStyle('bodyText')}>
+                                                <FormattedText text={award.description} />
+                                            </div>
+                                        )}
+                                    </div>
                                 </div>
                             ))}
                         </div>
@@ -155,17 +187,37 @@ export function ResumePreview({ resumeData, sectionOrder, styles }) {
                     textTransform: styles.headerTitle?.case || 'none'
                 }}>{resumeData.personal.title}</p>
 
+                {/* Subheader */}
+                {resumeData.personal.subheader && (
+                    <p className="mb-3" style={{
+                        fontSize: `${styles.subheader?.size || 0.95}rem`,
+                        fontWeight: styles.subheader?.bold ? 'bold' : 'normal',
+                        fontStyle: styles.subheader?.italic ? 'italic' : 'normal',
+                        color: styles.subheader?.color,
+                        fontFamily: styles.subheader?.family,
+                        textTransform: styles.subheader?.case || 'none'
+                    }}>
+                        {resumeData.personal.subheader}
+                    </p>
+                )}
+
                 <div className={`flex flex-wrap gap-x-4 gap-y-1 text-gray-500 text-sm ${styles.headerAlign === 'center' ? 'justify-center' : styles.headerAlign === 'right' ? 'justify-end' : 'justify-start'}`}>
                     {resumeData.personal.city && <span className="flex items-center gap-1.5"><MapPin size={12} /> {resumeData.personal.city}, {resumeData.personal.country}</span>}
                     {resumeData.personal.phone && <a href={`tel:${resumeData.personal.phone}`} className="flex items-center gap-1.5 hover:text-blue-600"><Phone size={12} /> {resumeData.personal.phone}</a>}
                     {resumeData.personal.email && <a href={`mailto:${resumeData.personal.email}`} className="flex items-center gap-1.5 hover:text-blue-600"><Mail size={12} /> {resumeData.personal.email}</a>}
-                    {resumeData.personal.linkedin && <a href={resumeData.personal.linkedin} target="_blank" className="flex items-center gap-1.5 hover:text-blue-600"><Linkedin size={12} /> LinkedIn Profile</a>}
+                    {resumeData.personal.linkedin && <a href={resumeData.personal.linkedin} target="_blank" rel="noreferrer" className="flex items-center gap-1.5 hover:text-blue-600"><Linkedin size={12} /> LinkedIn</a>}
+                    {/* Custom Links */}
+                    {resumeData.personal.links && resumeData.personal.links.map((link, idx) => (
+                        <a key={idx} href={link.url} target="_blank" rel="noreferrer" className="flex items-center gap-1.5 hover:text-blue-600 underline decoration-dotted">
+                            {link.label}
+                        </a>
+                    ))}
                 </div>
-            </div>
 
+            </div>
             <hr className="border-t-2 border-gray-800 mb-8" />
 
             {sectionOrder.map(section => renderSection(section.id))}
-        </div>
+        </div >
     );
 }

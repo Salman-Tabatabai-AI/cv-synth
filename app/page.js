@@ -143,8 +143,33 @@ export default function ResumeBuilder() {
     reader.onload = (event) => {
       try {
         const imported = JSON.parse(event.target.result);
-        if (imported.resumeData) setResumeData(imported.resumeData);
-        if (imported.sectionOrder) setSectionOrder(imported.sectionOrder);
+        if (imported.resumeData) setResumeData(prev => ({ ...prev, ...imported.resumeData }));
+
+        if (imported.sectionOrder) {
+          setSectionOrder(prev => {
+            const currentMap = new Map(prev.map(s => [s.id, s]));
+            // Merge imported order but respect current labels (migration)
+            const newOrder = imported.sectionOrder.map(s => {
+              const currentSection = currentMap.get(s.id);
+              // If it's a known section, ensure we use the latest label (e.g. "Professional Experiences")
+              // but preserve the imported visibility/order
+              if (currentSection) {
+                return { ...s, label: currentSection.label };
+              }
+              return s;
+            });
+
+            // Add any new default sections that might be missing in the old file (e.g. awards)
+            const importedIds = new Set(newOrder.map(s => s.id));
+            prev.forEach(s => {
+              if (!importedIds.has(s.id)) {
+                newOrder.push(s);
+              }
+            });
+
+            return newOrder;
+          });
+        }
         if (imported.styles) setStyles(prev => ({ ...prev, ...imported.styles }));
         alert("Resume loaded successfully!");
       } catch {
@@ -211,6 +236,21 @@ export default function ResumeBuilder() {
     });
   };
 
+  const reorderSection = (oldIndex, newIndex) => {
+    setSectionOrder((prev) => {
+      const newOrder = [...prev];
+      const [moved] = newOrder.splice(oldIndex, 1);
+      newOrder.splice(newIndex, 0, moved);
+      return newOrder;
+    });
+  };
+
+  const toggleSection = (id) => {
+    setSectionOrder(prev => prev.map(section =>
+      section.id === id ? { ...section, visible: !section.visible } : section
+    ));
+  };
+
   const updateStyle = (group, key, value) => {
     setStyles(prev => ({
       ...prev,
@@ -273,7 +313,9 @@ export default function ResumeBuilder() {
                 removeItem={removeItem}
                 moveItem={moveItem}
                 reorderItem={reorderItem}
-                moveSection={moveSection}
+                moveSection={moveSection} // Keeping fallback/alternative
+                reorderSection={reorderSection}
+                toggleSection={toggleSection}
                 setActiveSection={setActiveSection}
               />
             </TabsContent>

@@ -48,6 +48,28 @@ export function SectionList({ section, title, items, onAdd, onRemove, onMove, on
         }
     }
 
+    const handleAddItem = () => {
+        const newItem = { id: Date.now() };
+        if (type === 'experience') Object.assign(newItem, { role: "", company: "", dates: "", city: "", description: "" });
+        else if (type === 'education') Object.assign(newItem, { school: "", degree: "", fieldOfStudy: "", dates: "", city: "", description: "" });
+        else if (type === 'awards') Object.assign(newItem, { role: "", company: "", dates: "", description: "" });
+        else if (type === 'skills') Object.assign(newItem, { name: "", level: "Expert" });
+        else if (type === 'languages') Object.assign(newItem, { name: "", level: "Native/Bilingual" });
+
+        onAdd(section.id, [...items, newItem]); // Append to bottom
+    };
+
+    const getAddButtonLabel = () => {
+        switch (type) {
+            case 'experience': return 'Add Position';
+            case 'education': return 'Add Education';
+            case 'awards': return 'Add Award';
+            case 'skills': return 'Add Skill';
+            case 'languages': return 'Add Language';
+            default: return 'Add Item';
+        }
+    };
+
     // Helper to render specific fields based on section type
     const renderFields = (item) => {
         switch (type) {
@@ -106,6 +128,22 @@ export function SectionList({ section, title, items, onAdd, onRemove, onMove, on
                         <RichTextarea value={item.description} onChange={(e) => onChange(section.id, item.id, 'description', e.target.value)} placeholder="Brief description of your studies..." />
                     </>
                 );
+
+            case 'awards':
+                return (
+                    <>
+                        <div className="grid grid-cols-2 gap-4 mb-3 mt-1">
+                            <InputGroup label="Award Name" value={item.role} onChange={(e) => onChange(section.id, item.id, 'role', e.target.value)} placeholder="e.g. Best Innovation" />
+                            <InputGroup label="Issuer/Organization" value={item.company} onChange={(e) => onChange(section.id, item.id, 'company', e.target.value)} placeholder="e.g. Tech Weekly" />
+                        </div>
+                        <div className="mb-4">
+                            <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1">Date</label>
+                            <InputGroup value={item.dates} onChange={(e) => onChange(section.id, item.id, 'dates', e.target.value)} placeholder="e.g. 2023" />
+                        </div>
+                        <RichTextarea label="Description" value={item.description} onChange={(e) => onChange(section.id, item.id, 'description', e.target.value)} placeholder="Brief details regarding the award..." />
+                    </>
+                );
+
             case 'skills':
                 return (
                     <div className="flex gap-3 items-center w-full">
@@ -178,8 +216,8 @@ export function SectionList({ section, title, items, onAdd, onRemove, onMove, on
                                     </SortableItem>
                                 ))}
                                 <AddButton
-                                    label={`Add ${type === 'skills' ? 'Skill' : 'Language'}`}
-                                    onClick={() => onAdd(section.id, type === 'skills' ? { name: "", level: "Expert" } : { name: "", level: "Native" })}
+                                    label={getAddButtonLabel()}
+                                    onClick={handleAddItem}
                                 />
                             </div>
                         ) : (
@@ -193,8 +231,8 @@ export function SectionList({ section, title, items, onAdd, onRemove, onMove, on
                                     </SortableItem>
                                 ))}
                                 <AddButton
-                                    label={`Add ${type === 'experience' ? 'Employment' : 'Education'}`}
-                                    onClick={() => onAdd(section.id, type === 'experience' ? { role: "", company: "", dates: "", city: "", description: "" } : { school: "", degree: "", dates: "", city: "", description: "" })}
+                                    label={getAddButtonLabel()}
+                                    onClick={handleAddItem}
                                 />
                             </div>
                         )}

@@ -1,0 +1,167 @@
+{
+    "resumeData": {
+        "personal": {
+            "firstName": "Alex",
+            "surname": "Morgan",
+            "title": "Senior Product Designer",
+            "email": "alex.morgan@example.com",
+            "phone": "+1 (555) 123-4567",
+            "linkedin": "linkedin.com/in/alexmorgan-demo",
+            "website": "alexmorgan.design",
+            "city": "San Francisco",
+            "country": "CA",
+            "summary": "Creative and detail-oriented Product Designer with over 8 years of experience in building user-centric digital products. Passionate about solving complex problems through elegant design and data-driven insights. Proven track record of leading design teams and delivering successful products from concept to launch."
+        },
+        "experience": [
+            {
+                "id": 1,
+                "role": "Senior Product Designer",
+                "company": "TechFlow Solutions",
+                "city": "San Francisco, CA",
+                "dates": "03/2021 — Present",
+                "description": "Led the redesign of the core mobile application, resulting in a 25% increase in user engagement.\n• Established a comprehensive design system used across 4 product lines.\n• Mentored junior designers and conducted weekly design critiques.\n• Collaborated closely with engineering and product management to define roadmap."
+            },
+            {
+                "id": 2,
+                "role": "UX Designer",
+                "company": "Creative Pulse",
+                "city": "Austin, TX",
+                "dates": "06/2018 — 02/2021",
+                "description": "Designed intuitive interfaces for a suite of fintech tools.\n• Conducted user research and usability testing to validate design concepts.\n• Reduced user error rates by 40% through workflow optimizations."
+            }
+        ],
+        "education": [
+            {
+                "id": 1,
+                "school": "Rhode Island School of Design",
+                "degree": "Bachelor of Fine Arts (BFA)",
+                "fieldOfStudy": "Interaction Design",
+                "dates": "09/2014 — 05/2018",
+                "city": "Providence, RI",
+                "description": "Graduated with Honors. Senior Thesis on 'The Future of Adaptive Interfaces'."
+            }
+        ],
+        "skills": [
+            {
+                "id": 1,
+                "name": "UI/UX Design",
+                "level": "Expert"
+            },
+            {
+                "id": 2,
+                "name": "Figma & Prototyping",
+                "level": "Expert"
+            },
+            {
+                "id": 3,
+                "name": "User Research",
+                "level": "Experienced"
+            },
+            {
+                "id": 4,
+                "name": "HTML/CSS",
+                "level": "Intermediate"
+            }
+        ],
+        "languages": [
+            {
+                "id": 1,
+                "name": "English",
+                "level": "Native/Bilingual"
+            },
+            {
+                "id": 2,
+                "name": "Spanish",
+                "level": "Fluent"
+            }
+        ]
+    },
+    "sectionOrder": [
+        {
+            "id": "summary",
+            "label": "Professional Summary"
+        },
+        {
+            "id": "experience",
+            "label": "Employment History"
+        },
+        {
+            "id": "education",
+            "label": "Education"
+        },
+        {
+            "id": "skills",
+            "label": "Skills"
+        },
+        {
+            "id": "languages",
+            "label": "Languages"
+        }
+    ],
+    "styles": {
+        "fontFamily": "Inter, sans-serif",
+        "pageSize": "a4",
+        "lineHeight": 1.4,
+        "margin": 20,
+        "headerAlign": "center",
+        "name": {
+            "size": 2.2,
+            "bold": true,
+            "italic": false,
+            "color": "#000000",
+            "family": "Inter, sans-serif",
+            "case": "uppercase"
+        },
+        "headerTitle": {
+            "size": 1.1,
+            "bold": false,
+            "italic": false,
+            "color": "#666666",
+            "family": "Inter, sans-serif",
+            "case": "capitalize"
+        },
+        "sectionTitle": {
+            "size": 1.0,
+            "bold": true,
+            "italic": false,
+            "color": "#666666",
+            "uppercase": true,
+            "fontFamily": "Inter, sans-serif"
+        },
+        "jobTitle": {
+            "size": 1.1,
+            "bold": true,
+            "italic": false,
+            "color": "#000000",
+            "fontFamily": "Inter, sans-serif"
+        },
+        "company": {
+            "size": 1.0,
+            "bold": false,
+            "italic": false,
+            "color": "#333333",
+            "fontFamily": "Inter, sans-serif"
+        },
+        "dates": {
+            "size": 0.9,
+            "bold": false,
+            "italic": false,
+            "color": "#000000",
+            "fontFamily": "Inter, sans-serif"
+        },
+        "location": {
+            "size": 0.9,
+            "bold": false,
+            "italic": false,
+            "color": "#888888",
+            "fontFamily": "Inter, sans-serif"
+        },
+        "bodyText": {
+            "size": 0.95,
+            "bold": false,
+            "italic": false,
+            "color": "#333333",
+            "fontFamily": "Inter, sans-serif"
+        }
+    }
+}
