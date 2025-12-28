@@ -2,7 +2,8 @@
 
 **CV-Synth** is a modern, privacy-first resume builder designed to create premium, professional CVs with ease. Built with Next.js and Tailwind CSS, it offers a real-time "What You See Is What You Get" (WYSIWYG) editing experience without ever sending your personal data to a server.
 
-![CV-Synth Preview](https://placehold.co/800x400?text=CV-Synth+Preview)
+<img width="1914" height="892" alt="image" src="https://github.com/user-attachments/assets/bb79e38f-31d5-456a-bdd6-17e2f489492f" />
+
 
 ## ✨ Key Features
 
@@ -132,12 +133,15 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 
 ---
 
-## �‍💻 Created By
+## 💻 Created with ❤️ by:
 
-**Salman Tabatabai**  
+**Salman Tabatabai**
+
+[GitHub](https://github.com/Salman-Tabatabai-AI/)
+
 [LinkedIn](https://www.linkedin.com/in/salman-tabatabai)
 
 ---
 
-## �📄 License
+## 📃 License
 This project is open-source and available under the [MIT License](LICENSE).
