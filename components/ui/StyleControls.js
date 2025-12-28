@@ -1,6 +1,8 @@
 import React from 'react';
 import { Bold, Italic } from 'lucide-react';
 
+import { fonts } from '../../lib/constants';
+
 export function StyleControl({ label, config, onChange }) {
     return (
         <div className="bg-gray-50 p-3 rounded-lg border border-gray-200">
@@ -8,6 +10,19 @@ export function StyleControl({ label, config, onChange }) {
                 <span className="text-sm font-semibold text-gray-700">{label}</span>
                 <input type="color" value={config.color} onChange={(e) => onChange('color', e.target.value)} className="w-6 h-6 border-0 p-0 rounded cursor-pointer" />
             </div>
+
+            <div className="mb-2">
+                <select
+                    value={config.fontFamily || fonts[0].value}
+                    onChange={(e) => onChange('fontFamily', e.target.value)}
+                    className="w-full p-1.5 text-xs border border-gray-300 rounded bg-white"
+                >
+                    {fonts.map(f => (
+                        <option key={f.name} value={f.value}>{f.name}</option>
+                    ))}
+                </select>
+            </div>
+
             <div className="flex gap-2 items-center mb-2">
                 <button onClick={() => onChange('bold', !config.bold)} className={`p-1.5 rounded border ${config.bold ? 'bg-blue-100 border-blue-300 text-blue-700' : 'bg-white border-gray-300 text-gray-500'}`}><Bold size={14} /></button>
                 <button onClick={() => onChange('italic', !config.italic)} className={`p-1.5 rounded border ${config.italic ? 'bg-blue-100 border-blue-300 text-blue-700' : 'bg-white border-gray-300 text-gray-500'}`}><Italic size={14} /></button>

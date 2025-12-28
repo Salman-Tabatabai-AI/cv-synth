@@ -7,6 +7,7 @@ import { Card } from '../ui/Card';
 import { Input } from '../ui/Input';
 import { ArrowUp, ArrowDown, Trash2, GripVertical } from 'lucide-react';
 import { Button } from '../ui/Button';
+import { DateRangePicker } from '../ui/DateRangePicker';
 
 import {
     DndContext,
@@ -57,8 +58,10 @@ export function SectionList({ section, title, items, onAdd, onRemove, onMove, on
                             <InputGroup label="Job Title" value={item.role} onChange={(e) => onChange(section.id, item.id, 'role', e.target.value)} placeholder="e.g. Senior Manager" />
                             <InputGroup label="Employer" value={item.company} onChange={(e) => onChange(section.id, item.id, 'company', e.target.value)} placeholder="e.g. Acme Corp" />
                         </div>
-                        <div className="grid grid-cols-2 gap-4 mb-3">
-                            <InputGroup label="Dates" value={item.dates} onChange={(e) => onChange(section.id, item.id, 'dates', e.target.value)} placeholder="e.g. 2020 - Present" />
+                        <div className="grid grid-cols-1 mb-3">
+                            <DateRangePicker label="Employment Period" value={item.dates} onChange={(val) => onChange(section.id, item.id, 'dates', val)} />
+                        </div>
+                        <div className="grid grid-cols-1 mb-3">
                             <InputGroup label="City" value={item.city} onChange={(e) => onChange(section.id, item.id, 'city', e.target.value)} placeholder="e.g. London" />
                         </div>
                         <RichTextarea value={item.description} onChange={(e) => onChange(section.id, item.id, 'description', e.target.value)} placeholder="Describe your responsibilities and achievements..." />
@@ -69,10 +72,35 @@ export function SectionList({ section, title, items, onAdd, onRemove, onMove, on
                     <>
                         <div className="grid grid-cols-2 gap-4 mb-3 mt-1">
                             <InputGroup label="School" value={item.school} onChange={(e) => onChange(section.id, item.id, 'school', e.target.value)} placeholder="e.g. University of Design" />
-                            <InputGroup label="Degree" value={item.degree} onChange={(e) => onChange(section.id, item.id, 'degree', e.target.value)} placeholder="e.g. BMP Design" />
+                            <div className="flex flex-col gap-1.5">
+                                <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider">Degree</label>
+                                <select
+                                    value={item.degree}
+                                    onChange={(e) => onChange(section.id, item.id, 'degree', e.target.value)}
+                                    className="w-full p-2 border border-gray-200 rounded-lg text-sm bg-white focus:ring-2 focus:ring-blue-500 outline-none"
+                                >
+                                    <option value="" disabled>Select Degree</option>
+                                    <option>High School Diploma</option>
+                                    <option>Associate of Arts (AA)</option>
+                                    <option>Associate of Science (AS)</option>
+                                    <option>Bachelor of Arts (BA)</option>
+                                    <option>Bachelor of Science (BSc)</option>
+                                    <option>Master of Arts (MA)</option>
+                                    <option>Master of Science (MSc)</option>
+                                    <option>Master of Business Administration (MBA)</option>
+                                    <option>Doctor of Philosophy (PhD)</option>
+                                    <option>Doctor of Medicine (MD)</option>
+                                    <option>Other</option>
+                                </select>
+                            </div>
                         </div>
-                        <div className="grid grid-cols-2 gap-4 mb-3">
-                            <InputGroup label="Dates" value={item.dates} onChange={(e) => onChange(section.id, item.id, 'dates', e.target.value)} placeholder="e.g. 2016 - 2020" />
+                        <div className="grid grid-cols-1 mb-3">
+                            <InputGroup label="Field of Study" value={item.fieldOfStudy} onChange={(e) => onChange(section.id, item.id, 'fieldOfStudy', e.target.value)} placeholder="e.g. Computer Science" />
+                        </div>
+                        <div className="grid grid-cols-1 mb-3">
+                            <DateRangePicker label="Study Period" value={item.dates} onChange={(val) => onChange(section.id, item.id, 'dates', val)} />
+                        </div>
+                        <div className="grid grid-cols-1 mb-3">
                             <InputGroup label="City" value={item.city} onChange={(e) => onChange(section.id, item.id, 'city', e.target.value)} placeholder="e.g. New York" />
                         </div>
                         <RichTextarea value={item.description} onChange={(e) => onChange(section.id, item.id, 'description', e.target.value)} placeholder="Brief description of your studies..." />
@@ -113,7 +141,7 @@ export function SectionList({ section, title, items, onAdd, onRemove, onMove, on
                                 onChange={(e) => onChange(section.id, item.id, 'level', e.target.value)}
                                 className="w-full h-9 rounded-md border border-slate-200 bg-transparent px-3 py-1 text-sm shadow-sm focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-slate-950"
                             >
-                                <option>Native</option><option>Fluent</option><option>Intermediate</option>
+                                <option>Native/Bilingual</option><option>Fluent</option><option>Intermediate</option><option>Beginner</option>
                             </select>
                         </div>
                     </div>

@@ -22,35 +22,48 @@ export function DesignEditor({
                 </div>
             </DesignSection>
 
-            <DesignSection label="Name Typography">
-                <div className="space-y-4">
-                    <div>
-                        <label className="block text-xs font-semibold text-gray-500 mb-1">Name Font</label>
-                        <select
-                            value={styles.name.family}
-                            onChange={(e) => updateStyle('name', 'family', e.target.value)}
-                            className="w-full p-2 border border-blue-100 rounded-lg text-sm bg-white"
-                        >
-                            {fonts.map((f) => <option key={f.name} value={f.value}>{f.name}</option>)}
-                        </select>
-                    </div>
-
-                    <div>
-                        <label className="block text-xs font-semibold text-gray-500 mb-1">Text Case</label>
+            <DesignSection label="Header Typography">
+                <div className="space-y-6">
+                    {/* Name Controls */}
+                    <div className="space-y-3 border-b pb-4 border-gray-100">
+                        <div className="flex justify-between items-center">
+                            <label className="text-sm font-bold text-gray-800">Name</label>
+                            <select
+                                value={styles.name.family}
+                                onChange={(e) => updateStyle('name', 'family', e.target.value)}
+                                className="p-1 border border-gray-200 rounded text-xs bg-white w-32"
+                            >
+                                {fonts.map((f) => <option key={f.name} value={f.value}>{f.name}</option>)}
+                            </select>
+                        </div>
                         <div className="flex bg-gray-100 p-1 rounded-lg">
                             {['uppercase', 'capitalize', 'lowercase'].map((c) => (
                                 <button
                                     key={c}
                                     onClick={() => updateStyle('name', 'case', c)}
-                                    className={`flex-1 py-1.5 rounded text-xs capitalize ${styles.name.case === c ? 'bg-white shadow-sm font-medium' : 'text-gray-500'}`}
+                                    className={`flex-1 py-1 rounded text-xs capitalize ${styles.name.case === c ? 'bg-white shadow-sm font-medium' : 'text-gray-500'}`}
                                 >
                                     {c}
                                 </button>
                             ))}
                         </div>
+                        <StyleControl label="Style" config={styles.name} onChange={(k, v) => updateStyle('name', k, v)} />
                     </div>
 
-                    <StyleControl label="Name Style" config={styles.name} onChange={(k, v) => updateStyle('name', k, v)} />
+                    {/* Header Title Controls */}
+                    <div className="space-y-3">
+                        <div className="flex justify-between items-center">
+                            <label className="text-sm font-bold text-gray-800">Job Title / Headline</label>
+                            <select
+                                value={styles.headerTitle?.family || fonts[0].value}
+                                onChange={(e) => updateStyle('headerTitle', 'family', e.target.value)}
+                                className="p-1 border border-gray-200 rounded text-xs bg-white w-32"
+                            >
+                                {fonts.map((f) => <option key={f.name} value={f.value}>{f.name}</option>)}
+                            </select>
+                        </div>
+                        <StyleControl label="Style" config={styles.headerTitle || styles.jobTitle} onChange={(k, v) => updateStyle('headerTitle', k, v)} />
+                    </div>
                 </div>
             </DesignSection>
 

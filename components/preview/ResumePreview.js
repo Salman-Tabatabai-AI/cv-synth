@@ -8,6 +8,7 @@ export function ResumePreview({ resumeData, sectionOrder, styles }) {
         fontSize: `${styles[group].size}rem`,
         fontWeight: styles[group].bold ? 'bold' : 'normal',
         fontStyle: styles[group].italic ? 'italic' : 'normal',
+        fontFamily: styles[group].fontFamily, // Granular font control
         color: styles[group].color,
         ...(styles[group].uppercase ? { textTransform: 'uppercase', letterSpacing: '1px' } : {})
     });
@@ -30,14 +31,15 @@ export function ResumePreview({ resumeData, sectionOrder, styles }) {
                         <div className="space-y-6">
                             {resumeData.experience.map((job) => (
                                 // GRID: Date (130px) | Content
-                                <div key={job.id} className="grid grid-cols-[130px_1fr] gap-4 break-inside-avoid">
-                                    <div className="shrink-0" style={getStyle('dates')}>
+                                <div key={job.id} className="grid grid-cols-[130px_1fr] gap-4 break-inside-avoid items-baseline">
+                                    <div className="shrink-0 text-left" style={getStyle('dates')}>
                                         {job.dates}
                                     </div>
                                     <div className="min-w-0">
                                         <div className="flex justify-between items-baseline mb-2">
                                             <div className="leading-tight">
                                                 <span style={getStyle('jobTitle')}>{job.role}</span>
+                                                <span className="mx-2 text-gray-300 font-light">|</span>
                                                 <span style={getStyle('company')}>{job.company}</span>
                                             </div>
                                             <div className="whitespace-nowrap ml-4" style={getStyle('location')}>
@@ -59,14 +61,21 @@ export function ResumePreview({ resumeData, sectionOrder, styles }) {
                         <h3 className="mb-4 border-b border-gray-300 pb-1" style={getStyle('sectionTitle')}>Education</h3>
                         <div className="space-y-5">
                             {resumeData.education.map((edu) => (
-                                <div key={edu.id} className="grid grid-cols-[130px_1fr] gap-4 break-inside-avoid">
-                                    <div className="shrink-0" style={getStyle('dates')}>
+                                <div key={edu.id} className="grid grid-cols-[130px_1fr] gap-4 break-inside-avoid items-baseline">
+                                    <div className="shrink-0 text-left" style={getStyle('dates')}>
                                         {edu.dates}
                                     </div>
                                     <div className="min-w-0">
                                         <div className="flex justify-between items-baseline mb-2">
                                             <div className="leading-tight">
                                                 <span style={getStyle('jobTitle')}>{edu.degree}</span>
+                                                {edu.fieldOfStudy && (
+                                                    <>
+                                                        <span className="mx-2 text-gray-300 font-light">|</span>
+                                                        <span style={getStyle('jobTitle')} className="font-normal">{edu.fieldOfStudy}</span>
+                                                    </>
+                                                )}
+                                                <span className="mx-2 text-gray-300 font-light">|</span>
                                                 <span style={getStyle('company')}>{edu.school}</span>
                                             </div>
                                             <div className="whitespace-nowrap ml-4" style={getStyle('location')}>
@@ -137,7 +146,14 @@ export function ResumePreview({ resumeData, sectionOrder, styles }) {
                     }}>
                     {resumeData.personal.firstName} {resumeData.personal.surname}
                 </h1>
-                <p className="text-gray-600 mb-3 font-medium" style={{ fontSize: '1.1em' }}>{resumeData.personal.title}</p>
+                <p className="text-gray-600 mb-3" style={{
+                    fontSize: `${styles.headerTitle?.size || 1.1}rem`,
+                    fontWeight: styles.headerTitle?.bold ? 'bold' : 'normal',
+                    fontStyle: styles.headerTitle?.italic ? 'italic' : 'normal',
+                    color: styles.headerTitle?.color,
+                    fontFamily: styles.headerTitle?.family,
+                    textTransform: styles.headerTitle?.case || 'none'
+                }}>{resumeData.personal.title}</p>
 
                 <div className={`flex flex-wrap gap-x-4 gap-y-1 text-gray-500 text-sm ${styles.headerAlign === 'center' ? 'justify-center' : styles.headerAlign === 'right' ? 'justify-end' : 'justify-start'}`}>
                     {resumeData.personal.city && <span className="flex items-center gap-1.5"><MapPin size={12} /> {resumeData.personal.city}, {resumeData.personal.country}</span>}

@@ -3,7 +3,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useReactToPrint } from 'react-to-print';
 import {
-  Download, FileJson, Upload, ChevronLeft, ChevronRight, FileText, Palette, ZoomIn, ZoomOut
+  Download, FileJson, Upload, ChevronLeft, ChevronRight, FileText, Palette, ZoomIn, ZoomOut, FolderOpen, Save
 } from 'lucide-react';
 import { GlobalStyles } from '../lib/utils';
 import { initialData, initialStyles, defaultSections, pageSizes, MM_TO_PX } from '../lib/constants';
@@ -97,19 +97,42 @@ export default function ResumeBuilder() {
     }
   };
 
-  const handleExport = () => {
+  const handleSave = async () => {
     const dataStr = JSON.stringify({ resumeData, sectionOrder, styles }, null, 2);
     const blob = new Blob([dataStr], { type: "application/json" });
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement("a");
-    link.href = url;
-    link.download = `${resumeData.personal.firstName}_Resume.json`;
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+
+    try {
+      if (window.showSaveFilePicker) {
+        const handle = await window.showSaveFilePicker({
+          suggestedName: `${resumeData.personal.firstName}_Resume.json`,
+          types: [{
+            description: 'JSON Files',
+            accept: { 'application/json': ['.json'] },
+          }],
+        });
+        const writable = await handle.createWritable();
+        await writable.write(blob);
+        await writable.close();
+        alert("File saved successfully!");
+      } else {
+        // Fallback for browsers without File System Access API
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement("a");
+        link.href = url;
+        link.download = `${resumeData.personal.firstName}_Resume.json`;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      }
+    } catch (err) {
+      if (err.name !== 'AbortError') {
+        console.error(err);
+        alert("Failed to save file.");
+      }
+    }
   };
 
-  const handleImportClick = () => {
+  const handleLoadClick = () => {
     fileInputRef.current.click();
   };
 
@@ -221,11 +244,11 @@ export default function ResumeBuilder() {
 
           <div className="flex items-center gap-3">
             <input type="file" ref={fileInputRef} onChange={handleFileChange} className="hidden" accept="application/json" />
-            <Button variant="ghost" size="sm" onClick={handleExport} className="gap-2 text-slate-600">
-              <FileJson size={16} /> <span className="hidden sm:inline">Export</span>
+            <Button variant="ghost" size="sm" onClick={handleSave} className="gap-2 text-slate-600">
+              <Save size={16} /> <span className="hidden sm:inline">Save</span>
             </Button>
-            <Button variant="ghost" size="sm" onClick={handleImportClick} className="gap-2 text-slate-600">
-              <Upload size={16} /> <span className="hidden sm:inline">Import</span>
+            <Button variant="ghost" size="sm" onClick={handleLoadClick} className="gap-2 text-slate-600">
+              <FolderOpen size={16} /> <span className="hidden sm:inline">Load</span>
             </Button>
             <Button onClick={() => handlePrint()} className="gap-2 bg-blue-600 hover:bg-blue-700 shadow-md ml-2 rounded-full px-6">
               <Download size={16} /> Download PDF
