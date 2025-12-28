@@ -1,10 +1,19 @@
 import React from 'react';
+import { Input } from './Input';
 
-export function InputGroup({ label, name, value, onChange }) {
+export function InputGroup({ label, name, value, onChange, placeholder, type = "text" }) {
     return (
-        <div>
-            <label className="block text-xs font-semibold text-gray-500 uppercase mb-1">{label}</label>
-            <input type="text" name={name} value={value} onChange={onChange} className="w-full p-2.5 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 outline-none transition" />
+        <div className="space-y-1.5">
+            <label className="text-xs font-semibold text-slate-500 uppercase tracking-wider ml-0.5">
+                {label}
+            </label>
+            <Input
+                type={type}
+                name={name}
+                value={value}
+                onChange={onChange}
+                placeholder={placeholder}
+            />
         </div>
     );
 }

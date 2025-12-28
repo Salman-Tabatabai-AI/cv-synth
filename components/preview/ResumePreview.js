@@ -117,7 +117,12 @@ export function ResumePreview({ resumeData, sectionOrder, styles }) {
     };
 
     return (
-        <div style={{ width: '100%', fontFamily: styles.fontFamily, lineHeight: styles.lineHeight, paddingBottom: '1px' }}>
+        <div style={{
+            width: '100%',
+            fontFamily: styles.fontFamily,
+            lineHeight: styles.lineHeight,
+            paddingBottom: '1px'
+        }}>
             {/* Header */}
             <div className="mb-6 break-inside-avoid" style={{ textAlign: styles.headerAlign }}>
                 <h1 className="mb-2"
