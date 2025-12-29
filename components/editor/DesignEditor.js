@@ -22,56 +22,21 @@ export function DesignEditor({
                 </div>
             </DesignSection>
 
-            <DesignSection label="Header Typography">
+            <DesignSection label="Typography">
                 <div className="space-y-6">
                     {/* Name Controls */}
-                    <div className="space-y-3 border-b pb-4 border-gray-100">
-                        <div className="flex justify-between items-center">
-                            <label className="text-sm font-bold text-gray-800">Name</label>
-                            <select
-                                value={styles.name.family}
-                                onChange={(e) => updateStyle('name', 'family', e.target.value)}
-                                className="p-1 border border-gray-200 rounded text-xs bg-white w-32"
-                            >
-                                {fonts.map((f) => <option key={f.name} value={f.value}>{f.name}</option>)}
-                            </select>
-                        </div>
-                        <div className="flex bg-gray-100 p-1 rounded-lg">
-                            {['uppercase', 'capitalize', 'lowercase'].map((c) => (
-                                <button
-                                    key={c}
-                                    onClick={() => updateStyle('name', 'case', c)}
-                                    className={`flex-1 py-1 rounded text-xs capitalize ${styles.name.case === c ? 'bg-white shadow-sm font-medium' : 'text-gray-500'}`}
-                                >
-                                    {c}
-                                </button>
-                            ))}
-                        </div>
-                        <StyleControl label="Style" config={styles.name} onChange={(k, v) => updateStyle('name', k, v)} />
+                    <div className="pb-4 border-b border-gray-100">
+                        <StyleControl label="Name" config={styles.name} onChange={(k, v) => updateStyle('name', k, v)} />
                     </div>
 
-                    {/* Header Title Controls */}
-                    <div className="space-y-3">
-                        <div className="flex justify-between items-center">
-                            <label className="text-sm font-bold text-gray-800">Job Title / Headline</label>
-                            <select
-                                value={styles.headerTitle?.family || fonts[0].value}
-                                onChange={(e) => updateStyle('headerTitle', 'family', e.target.value)}
-                                className="p-1 border border-gray-200 rounded text-xs bg-white w-32"
-                            >
-                                {fonts.map((f) => <option key={f.name} value={f.value}>{f.name}</option>)}
-                            </select>
-                        </div>
-                        <StyleControl label="Style" config={styles.headerTitle || styles.jobTitle} onChange={(k, v) => updateStyle('headerTitle', k, v)} />
-                    </div>
-                </div>
-            </DesignSection>
+                    <StyleControl label="Job Title / Headline" config={styles.headerTitle || styles.jobTitle} onChange={(k, v) => updateStyle('headerTitle', k, v)} />
+                    <StyleControl label="Subheader (Profile)" config={styles.subheader} onChange={(k, v) => updateStyle('subheader', k, v)} />
+                    <StyleControl label="Contact Info" config={styles.contactInfo} onChange={(k, v) => updateStyle('contactInfo', k, v)} />
 
-            <DesignSection label="Typography Details">
-                <p className="text-xs text-gray-500 mb-4">Customize the appearance of specific resume elements.</p>
-                <div className="space-y-4">
+                    <hr className="border-gray-100 my-4" />
+
                     <StyleControl label="Section Headers" config={styles.sectionTitle} onChange={(k, v) => updateStyle('sectionTitle', k, v)} />
-                    <StyleControl label="Job Titles" config={styles.jobTitle} onChange={(k, v) => updateStyle('jobTitle', k, v)} />
+                    <StyleControl label="Job Titles (Body)" config={styles.jobTitle} onChange={(k, v) => updateStyle('jobTitle', k, v)} />
                     <StyleControl label="Company Name" config={styles.company} onChange={(k, v) => updateStyle('company', k, v)} />
                     <StyleControl label="Dates" config={styles.dates} onChange={(k, v) => updateStyle('dates', k, v)} />
                     <StyleControl label="Location (City)" config={styles.location} onChange={(k, v) => updateStyle('location', k, v)} />

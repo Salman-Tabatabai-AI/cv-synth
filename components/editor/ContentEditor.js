@@ -130,6 +130,7 @@ export function ContentEditor({
             <hr className="border-gray-200 my-4" />
 
             <DndContext
+                id="content-editor-dnd"
                 sensors={sensors}
                 collisionDetection={closestCenter}
                 onDragEnd={handleDragEnd}

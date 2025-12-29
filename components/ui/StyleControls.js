@@ -23,6 +23,8 @@ export function StyleControl({ label, config, onChange }) {
                 </select>
             </div>
 
+
+
             <div className="flex gap-2 items-center mb-2">
                 <button onClick={() => onChange('bold', !config.bold)} className={`p-1.5 rounded border ${config.bold ? 'bg-blue-100 border-blue-300 text-blue-700' : 'bg-white border-gray-300 text-gray-500'}`}><Bold size={14} /></button>
                 <button onClick={() => onChange('italic', !config.italic)} className={`p-1.5 rounded border ${config.italic ? 'bg-blue-100 border-blue-300 text-blue-700' : 'bg-white border-gray-300 text-gray-500'}`}><Italic size={14} /></button>

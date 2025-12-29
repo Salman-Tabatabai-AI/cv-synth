@@ -173,7 +173,7 @@ export function ResumePreview({ resumeData, sectionOrder, styles }) {
                         fontWeight: styles.name.bold ? 'bold' : 'normal',
                         fontStyle: styles.name.italic ? 'italic' : 'normal',
                         color: styles.name.color,
-                        fontFamily: styles.name.family,
+                        fontFamily: styles.name.fontFamily || styles.name.family,
                         textTransform: styles.name.case
                     }}>
                     {resumeData.personal.firstName} {resumeData.personal.surname}
@@ -183,25 +183,20 @@ export function ResumePreview({ resumeData, sectionOrder, styles }) {
                     fontWeight: styles.headerTitle?.bold ? 'bold' : 'normal',
                     fontStyle: styles.headerTitle?.italic ? 'italic' : 'normal',
                     color: styles.headerTitle?.color,
-                    fontFamily: styles.headerTitle?.family,
+                    fontFamily: styles.headerTitle?.fontFamily || styles.headerTitle?.family,
                     textTransform: styles.headerTitle?.case || 'none'
                 }}>{resumeData.personal.title}</p>
 
-                {/* Subheader */}
-                {resumeData.personal.subheader && (
-                    <p className="mb-3" style={{
-                        fontSize: `${styles.subheader?.size || 0.95}rem`,
-                        fontWeight: styles.subheader?.bold ? 'bold' : 'normal',
-                        fontStyle: styles.subheader?.italic ? 'italic' : 'normal',
-                        color: styles.subheader?.color,
-                        fontFamily: styles.subheader?.family,
-                        textTransform: styles.subheader?.case || 'none'
-                    }}>
-                        {resumeData.personal.subheader}
-                    </p>
-                )}
-
-                <div className={`flex flex-wrap gap-x-4 gap-y-1 text-gray-500 text-sm ${styles.headerAlign === 'center' ? 'justify-center' : styles.headerAlign === 'right' ? 'justify-end' : 'justify-start'}`}>
+                <div className={`flex flex-wrap gap-x-4 gap-y-1 mb-3 ${styles.headerAlign === 'center' ? 'justify-center' : styles.headerAlign === 'right' ? 'justify-end' : 'justify-start'}`}
+                    style={{
+                        fontSize: `${styles.contactInfo?.size || 0.9}rem`,
+                        fontWeight: styles.contactInfo?.bold ? 'bold' : 'normal',
+                        fontStyle: styles.contactInfo?.italic ? 'italic' : 'normal',
+                        color: styles.contactInfo?.color,
+                        fontFamily: styles.contactInfo?.fontFamily || styles.contactInfo?.family,
+                        textTransform: styles.contactInfo?.case || 'none'
+                    }}
+                >
                     {resumeData.personal.city && <span className="flex items-center gap-1.5"><MapPin size={12} /> {resumeData.personal.city}, {resumeData.personal.country}</span>}
                     {resumeData.personal.phone && <a href={`tel:${resumeData.personal.phone}`} className="flex items-center gap-1.5 hover:text-blue-600"><Phone size={12} /> {resumeData.personal.phone}</a>}
                     {resumeData.personal.email && <a href={`mailto:${resumeData.personal.email}`} className="flex items-center gap-1.5 hover:text-blue-600"><Mail size={12} /> {resumeData.personal.email}</a>}
@@ -213,6 +208,20 @@ export function ResumePreview({ resumeData, sectionOrder, styles }) {
                         </a>
                     ))}
                 </div>
+
+                {/* Subheader (Moved below contact info) */}
+                {resumeData.personal.subheader && (
+                    <p className="mb-3" style={{
+                        fontSize: `${styles.subheader?.size || 0.95}rem`,
+                        fontWeight: styles.subheader?.bold ? 'bold' : 'normal',
+                        fontStyle: styles.subheader?.italic ? 'italic' : 'normal',
+                        color: styles.subheader?.color,
+                        fontFamily: styles.subheader?.fontFamily || styles.subheader?.family,
+                        textTransform: styles.subheader?.case || 'none'
+                    }}>
+                        {resumeData.personal.subheader}
+                    </p>
+                )}
 
             </div>
             <hr className="border-t-2 border-gray-800 mb-8" />
