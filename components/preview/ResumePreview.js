@@ -64,7 +64,7 @@ export function ResumePreview({ resumeData, sectionOrder, styles }) {
                         <h3 className="mb-4 border-b border-gray-300 pb-1" style={getStyle('sectionTitle')}>{sectionConfig.label}</h3>
                         <div className="space-y-5">
                             {resumeData.education.map((edu) => (
-                                <div key={edu.id} className="grid grid-cols-[115px_1fr] gap-4 break-inside-avoid items-baseline">
+                                <div key={edu.id} className="grid grid-cols-[130px_1fr] gap-4 break-inside-avoid items-baseline">
                                     <div className="shrink-0 text-left" style={getStyle('dates')}>
                                         {edu.dates}
                                     </div>
@@ -130,7 +130,7 @@ export function ResumePreview({ resumeData, sectionOrder, styles }) {
                         <h3 className="mb-4 border-b border-gray-300 pb-1" style={getStyle('sectionTitle')}>{sectionConfig.label}</h3>
                         <div className="space-y-4">
                             {resumeData.awards.map((award) => (
-                                <div key={award.id} className="grid grid-cols-[115px_1fr] gap-4 break-inside-avoid items-baseline">
+                                <div key={award.id} className="grid grid-cols-[130px_1fr] gap-4 break-inside-avoid items-baseline">
                                     <div className="shrink-0 text-left" style={getStyle('dates')}>
                                         {award.dates}
                                     </div>
